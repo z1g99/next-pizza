@@ -1,6 +1,5 @@
 import React from 'react'
-import {Title} from '@/components/shared'
-import {FilterCheckbox} from '@/components/shared/filter-checkbox'
+import {FilterCheckbox, Title} from '@/components/shared'
 
 interface Props {
 	className?: string
