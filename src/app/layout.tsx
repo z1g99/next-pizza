@@ -1,12 +1,12 @@
-import {Nunito} from 'next/font/google'
+import localFont from 'next/font/local'
 import type {Metadata} from 'next'
 import './globals.css'
 import {Header} from '@/components/shared'
 
-const nunito = Nunito({
-  subsets: ['cyrillic'],
+const nunito = localFont({
+  src: './fonts/Nunito-VariableFont_wght.ttf',
   variable: '--font-nunito',
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: '400 500 600 700 800 900',
 });
 
 export const metadata: Metadata = {
