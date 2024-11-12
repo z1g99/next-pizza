@@ -4,7 +4,7 @@ import {Plus} from 'lucide-react'
 import {Title} from '@/components/shared/title'
 import {Button} from '@/components/ui'
 
-interface Props {
+export interface ProductCardProps {
 	id: number
 	name: string
 	price: number
@@ -12,7 +12,7 @@ interface Props {
 	className?: string
 }
 
-export const ProductCard: React.FC<Props> = ({id, name, price, imageUrl, className}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({id, name, price, imageUrl, className}) => {
 	return (
 		<div className={className}>
 			<Link href={`/product/${id}`}>
