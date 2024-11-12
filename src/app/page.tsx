@@ -21,7 +21,7 @@ export default function Home() {
               {id: 3, name: 'Жюльен', price: 529, imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D6175C10773BFE36E56D48DF7E3.avif'},
               {id: 4, name: 'Жюльен', price: 529, imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D6175C10773BFE36E56D48DF7E3.avif'},
             ]} categoryId={1}/>
-            <ProductsGroupList title='Завтраки' products={[
+            <ProductsGroupList title='Комбо' products={[
               {id: 1, name: 'Сырники', price: 135, imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EF9060DD723610942E8F368B03540A.avif'},
               {id: 2, name: 'Сырники', price: 135, imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EF9060DD723610942E8F368B03540A.avif'},
               {id: 3, name: 'Сырники', price: 135, imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EF9060DD723610942E8F368B03540A.avif'},
