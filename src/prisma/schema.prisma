@@ -12,6 +12,8 @@ model User {
   firstName String
   email     String   @unique
   password  String
+  cart      Cart[]
+  orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -33,18 +35,76 @@ model Product {
 }
 
 model ProductVariant {
-  id        Int     @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   price     Int
-  size      Int?
-  pizzaType Int?
-  product   Product @relation(fields: [product], references: [id])
+  size      Size
+  pizzaType Type
+  product   Product    @relation(fields: [product], references: [id])
   productId Int
+  cartItems CartItem[]
 }
 
 model Ingredient {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  price    Int
-  imageUrl String
-  products Product[]
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  price     Int
+  imageUrl  String
+  products  Product[]
+  cartItems CartItem[]
+}
+
+model Cart {
+  id          Int      @id @default(autoincrement())
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      Int?
+  token       String
+  totalAmount Int      @default(0)
+  items       CartItem
+}
+
+model CartItem {
+  id               Int            @id @default(autoincrement())
+  quantity         Int
+  ingredients      Ingredient[]
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+  productVariantId Int
+  cart             Cart           @relation(fields: [cartId], references: [id])
+  cartId           Int
+}
+
+model Order {
+  // Информация о заказе
+  id          Int         @id @default(autoincrement())
+  token       String
+  totalAmount Int
+  status      OrderStatus
+  paymentId   String?
+  items       Json
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  // Информация о заказчике
+  firstName String
+  phone     String
+  addres    String
+  email     String
+  comment   String
+  user      User?  @relation(fields: [userId], references: [id])
+  userId    Int?
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum Type {
+  REGULAR
+  THIN
 }
