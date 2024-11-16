@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:push": "src/prisma db push",
+    "prisma:studio": "src/prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -23,6 +25,7 @@
     "react-use": "^17.5.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
+    "vercel": "^39.0.2",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
