@@ -8,14 +8,19 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  email     String   @unique
-  password  String
-  cart      Cart[]
-  orders    Order[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int               @id @default(autoincrement())
+  firstName  String
+  email      String            @unique
+  password   String
+  provider   String?
+  providerId String?
+  role       Role              @default(USER)
+  verified   DateTime
+  cart       Cart?
+  orders     Order[]
+  code       VerificationCode?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
 }
 
 model Category {
@@ -30,7 +35,7 @@ model Product {
   imageUrl    String
   ingredients Ingredient[]
   variants    ProductVariant[]
-  category    Category         @relation(fields: [Category], references: [id])
+  category    Category         @relation(fields: [categoryId], references: [id])
   categoryId  Int
 }
 
@@ -39,7 +44,7 @@ model ProductVariant {
   price     Int
   size      Size
   pizzaType Type
-  product   Product    @relation(fields: [product], references: [id])
+  product   Product    @relation(fields: [productId], references: [id])
   productId Int
   cartItems CartItem[]
 }
@@ -54,12 +59,12 @@ model Ingredient {
 }
 
 model Cart {
-  id          Int      @id @default(autoincrement())
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      Int?
+  id          Int        @id @default(autoincrement())
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      Int?       @unique
   token       String
-  totalAmount Int      @default(0)
-  items       CartItem
+  totalAmount Int        @default(0)
+  items       CartItem[]
 }
 
 model CartItem {
@@ -92,10 +97,25 @@ model Order {
   userId    Int?
 }
 
+model VerificationCode {
+  id        Int      @id @default(autoincrement())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?     @unique
+  code      String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, code])
+}
+
 enum OrderStatus {
   PENDING
   SUCCEEDED
   CANCELLED
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum Size {
