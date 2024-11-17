@@ -42,8 +42,8 @@ model Product {
 model ProductVariant {
   id        Int        @id @default(autoincrement())
   price     Int
-  size      Size
-  pizzaType Type
+  size      Size?
+  pizzaType Type?
   product   Product    @relation(fields: [productId], references: [id])
   productId Int
   cartItems CartItem[]
