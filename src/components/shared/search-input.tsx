@@ -22,11 +22,22 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 		setFocused(false)
 	})
 	
-	useDebounce(() => {
-		Api.products.search(searchQuery).then(items => {
-			setProducts(items)
-		})
-	}, 100, [searchQuery])
+	const clearSearch = () => {
+		setFocused(false)
+		setProducts([])
+		setSearchQuery('')
+	}
+	
+	useDebounce(
+		async () => {
+			try {
+				const response = await Api.products.search(searchQuery)
+				setProducts(response)
+			} catch (e) {
+				console.error(e)
+			}
+		}, 100, [searchQuery]
+	)
 	
 	return (
 		<>
@@ -53,6 +64,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 									href={`/product/${product.id}`}
 									className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
 									key={product.id}
+									onClick={clearSearch}
 								>
 									<img
 										className='rounded-sm h-8 w-8'
