@@ -1,12 +1,18 @@
+'use client'
+
 import React from 'react'
 import {CheckboxFiltersGroup, FilterCheckbox, RangeSlider, Title} from '@/components/shared'
 import {Input} from '@/components/ui'
+import {useFilterIngredients} from '@/hooks/useFilterIngredients'
 
 interface Props {
 	className?: string
 }
 
 export const Filters: React.FC<Props> = ({className}) => {
+	const {items, loading, selectedIds, onAddId} = useFilterIngredients()
+	const ingredients = items.map((item) => ({ value: String(item.id), text: item.name }))
+	
 	return (
 		<div className={className}>
 			<Title text='Фильтры' size='sm' className='mb-5 font-bold'/>
@@ -32,82 +38,11 @@ export const Filters: React.FC<Props> = ({className}) => {
 				title='Ингридиенты'
 				className='mt-5'
 				limit={6}
-				defaultItems={[
-					{
-						text: 'Сырный соус',
-						value: '1'
-					},
-					{
-						text: 'Моццарелла',
-						value: '2'
-					},
-					{
-						text: 'Чеснок',
-						value: '3'
-					},
-					{
-						text: 'Солённые огурчики',
-						value: '4'
-					},
-					{
-						text: 'Красный лук',
-						value: '5'
-					},
-					{
-						text: 'Томаты',
-						value: '6'
-					}
-				]}
-				items={[
-					{
-						text: 'Сырный соус',
-						value: '1'
-					},
-					{
-						text: 'Моццарелла',
-						value: '2'
-					},
-					{
-						text: 'Чеснок',
-						value: '3'
-					},
-					{
-						text: 'Солённые огурчики',
-						value: '4'
-					},
-					{
-						text: 'Красный лук',
-						value: '5'
-					},
-					{
-						text: 'Томаты',
-						value: '6'
-					},
-					{
-						text: 'Сырный соус',
-						value: '1'
-					},
-					{
-						text: 'Моццарелла',
-						value: '2'
-					},
-					{
-						text: 'Чеснок',
-						value: '3'
-					},
-					{
-						text: 'Солённые огурчики',
-						value: '4'
-					},
-					{
-						text: 'Красный лук',
-						value: '5'
-					},
-					{
-						text: 'Томаты',
-						value: '6'
-					}
-				]}
+				defaultItems={ingredients.slice(0, 6)}
+				items={ingredients}
+				loading={loading}
+				onClickCheckbox={onAddId}
+				selectedIds={selectedIds}
 				/>
 		</div>
 	)

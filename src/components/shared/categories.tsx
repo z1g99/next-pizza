@@ -8,7 +8,7 @@ interface Props {
 	className?: string
 }
 
-const cats = ['Пиццы', 'Комбо', 'Закуски', 'Коктейли', 'Кофе', 'Напитка', 'Десерты']
+const cats = ['Пиццы', 'Комбо', 'Закуски', 'Коктейли', 'Кофе', 'Напитки', 'Десерты']
 
 
 export const Categories: React.FC<Props> = ({className}) => {
